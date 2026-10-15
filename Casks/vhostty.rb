@@ -1,6 +1,6 @@
 cask "vhostty" do
-  version "0.5.0"
-  sha256 "e082e6c1d8dd1132e4fff01467d9a2df13812aae3810f3d25b921dc69cb3c08e"
+  version "0.5.1"
+  sha256 "5a7312f9a03be726f9d2bbf3bef5585e455937b55998d5afe4868a69de199efc"
 
   url "https://github.com/SunRunAway/vhostty/releases/download/v#{version}/Vhostty.zip"
   name "Vhostty"
