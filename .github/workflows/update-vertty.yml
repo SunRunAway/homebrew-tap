@@ -1,4 +1,4 @@
-name: Update Vhostty
+name: Update Vertty
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-vhostty
+  group: update-vertty
   cancel-in-progress: false
 
 jobs:
@@ -20,12 +20,12 @@ jobs:
       - name: Update release version and checksum
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 scripts/update-vhostty.py
+        run: python3 scripts/update-vertty.py
       - name: Commit update
         run: |
-          if git diff --quiet -- Casks/vhostty.rb; then exit 0; fi
+          if git diff --quiet -- Casks/vertty.rb; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Casks/vhostty.rb
-          git commit -m "Update Vhostty release"
+          git add Casks/vertty.rb
+          git commit -m "Update Vertty release"
           git push
