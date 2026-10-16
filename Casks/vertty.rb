@@ -1,6 +1,6 @@
 cask "vertty" do
-  version "0.6.0"
-  sha256 "8882a240c6c3df0d60da8ff07e2dcb7d98fea063207bd606f271fdc8dd70a2e8"
+  version "0.7.0"
+  sha256 "17ea9de69bc838e40dd21af2e4e0d632d20912df296b6846fd9eec9bfec6a24b"
 
   url "https://github.com/SunRunAway/vertty/releases/download/v#{version}/Vertty.zip"
   name "Vertty"
