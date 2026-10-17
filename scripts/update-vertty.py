@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import urllib.request
+import xml.etree.ElementTree as ET
 
 release = json.loads(subprocess.check_output([
     "gh", "api", "repos/SunRunAway/vertty/releases/latest",
@@ -24,5 +26,16 @@ for key, value in (("version", tag[1:]), ("sha256", digest.removeprefix("sha256:
     text, count = re.subn(rf'^  {key} "[^"\n]+"$', f'  {key} "{value}"', text, flags=re.M)
     if count != 1:
         raise SystemExit(f"Expected exactly one {key} stanza")
+# Only advertise self-updates once the published app has a real update entry.
+# The initial empty appcast lets development builds check updates before that release.
+feeds = [a for a in release["assets"] if a["name"] == "appcast.xml"]
+auto_updates = False
+if feeds:
+    with urllib.request.urlopen(feeds[0]["browser_download_url"], timeout=30) as response:
+        appcast = ET.fromstring(response.read())
+    auto_updates = any(item.get("url") == expected_url for item in appcast.findall("./channel/item/enclosure"))
+text = text.replace("  auto_updates true\n\n", "")
+if auto_updates:
+    text = text.replace('  app "Vertty.app"', '  auto_updates true\n\n  app "Vertty.app"')
 path.write_text(text)
 print(f"Vertty {tag}: {digest}")
