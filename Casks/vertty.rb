@@ -1,6 +1,6 @@
 cask "vertty" do
-  version "0.7.1"
-  sha256 "4bb81b4d1e47cf2220fb499ccbc31adf99f1fe83db5cc86f6456de117fad122f"
+  version "0.8.0"
+  sha256 "f61a68d7974ceb963ffcad061c45ae2d04ba94335406b08664404d15cc9626db"
 
   url "https://github.com/SunRunAway/vertty/releases/download/v#{version}/Vertty.zip"
   name "Vertty"
@@ -9,6 +9,8 @@ cask "vertty" do
 
   depends_on arch: :arm64
   depends_on macos: :sonoma
+
+  auto_updates true
 
   app "Vertty.app"
 
